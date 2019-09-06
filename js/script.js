@@ -15,17 +15,53 @@ project 1 - A Random Quote Generator
   Use console.log() to log your array of quotes to the console.
 ***/
 
+// Declaring an array of quote objects
+var quotes = [
+  {
+    quote: 'Adventure is out there!',
+    source: 'Ellie',
+    citation: 'Up',
+    year: 2009,
+  },
+  {
+    quote: 'If you focus on what you left behind you will never see what lies ahead.',
+    source: 'Gusteau',
+    citation: 'Ratatouille',
+    year: 2007,
+  },
+  {
+    quote: 'The rest of the world may follow the rules, but I must follow my heart.',
+    source: 'Ernesto',
+    citation: 'Coco',
+    year: 2017,
+  },
+  {
+    quote: 'Now, you might not feel like you can do much now, but that\'s just because, well, you\'re not a tree yet. You just have to give yourself some time. You\'re still a seed.',
+    source: 'Flik',
+    citation: 'A Bug\'s Life',
+    year: 1998,
+  },
+  {
+    quote: 'To infinity and beyond!',
+    source: 'Buzz Lightyear',
+    citation: 'Toy Story',
+    year: 1995,
+  },
+];
 
-
+//console.log(quotes);
 
 /***
   Create the `getRandomQuote` function to:
    - Create a variable to store a random number 
    - Cse the random number to `return` a random quote object from the `quotes` array.
 ***/
+function getRandomQuote(quotesArray) {
+  var quote_key = Math.floor(Math.random() * quotesArray.length ) ;
+  return quotesArray[quote_key];
+}
 
-
-
+// console.log( getRandomQuote(quotes) );
 
 /***
   Create the `printQuote` function to: 
@@ -39,7 +75,36 @@ project 1 - A Random Quote Generator
    - Don't forget to close that final `p` tag.
    - Set the `innerHTML` of the `quote-box` div to the HTML string. 
 ***/
+function propertyExists(the_prop) {
+  var exist = false;
 
+  if ( the_prop !== null && the_prop !== '' ) {
+    exist = true;
+  }
+
+  return exist;
+}
+
+function printQuote() {
+  var q_container = document.getElementById('quote-box');
+  var q_object = getRandomQuote(quotes);
+  var q_html = '';
+  
+  q_html += '<p class="quote">' + q_object.quote + '</p>';
+  q_html += '<p class="source">' + q_object.source;
+
+  if ( propertyExists(q_object.citation) ) {
+    q_html += '<span class="citation">' + q_object.citation + '</span>';
+  } 
+
+  if (propertyExists(q_object.year) ) {
+    q_html += '<span class="year">' + q_object.year + '</span>';
+  }
+
+  q_html += '</p>';
+  
+  q_container.innerHTML = q_html;
+}
 
 
 
