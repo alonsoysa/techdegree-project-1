@@ -3,7 +3,9 @@ Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
 ******************************************/
 
-// An array of quote objects based on Pixar movies!
+/**
+* 1. An array of quote objects based on Pixar movies!
+*/
 var quotes = [
   {
     quote: 'Adventure is out there!',
@@ -42,45 +44,83 @@ var quotes = [
 ];
 
 
-// Variable for storing the last shown quote
+/**
+* 1. Global variables
+*/
 var previousQuote;
+var quoteLength = quotes.length;
 
-// Returns a random quote from the quotes object
+/**
+* 2. Returns a random number
+*   - upper = the highest number (optional)
+*   - lower = the lowest number (optional)
+*   A. Returns a number from the specified range
+*   B. Returns a number from 0 to the specified upper number
+*   C. Returns a number from 1 to 100
+*/
+function getRandomNumber(upper, lower) {
+  var random_number;
+  var upper_default = 100;
+  var lower_default = 1;
+
+  // A
+  if ( upper && lower ) {
+    random_number = Math.floor(Math.random() * (upper - lower + 1)) + lower;
+  } 
+  // B
+  else if ( upper && !lower ) {
+    random_number = Math.floor(Math.random() * upper);
+  } 
+  // C
+  else {
+    random_number = Math.floor(Math.random() * (upper_default - lower_default + 1)) + lower_default;
+  }
+
+  return random_number;
+}
+
+
+/**
+* 3. Returns a random quote from the quotes object
+*/
 function getRandomQuote() {
-
-  // generates a random number from 0 to the amount of objects in Quotes.
-  var quote_key = Math.floor( Math.random() * quotes.length ) ;
-
+  var quote_key = getRandomNumber(quoteLength);
   return quotes[quote_key];
 }
 
-function randomColor() {
-  // Generated a random value
-  var r = Math.floor( Math.random() * 256 );
-  var g = Math.floor( Math.random() * 256 );
-  var b = Math.floor( Math.random() * 256 );
+
+/**
+* 4. Generate a random rgb color
+*/
+function getRandomColor() {
+  // Generate a random value for each color
+  var r = getRandomNumber(256);
+  var g = getRandomNumber(256);
+  var b = getRandomNumber(256);
 
   return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 
-// Returns the html for displaying a quote.
-// I moved this out of printQuote because it was getting too messy
+
+/**
+* 5. Returns the html for displaying a quote.
+*/
 function buildQuoteHTML(q_object) {
   var q_html = '';
 
+  // Start building markup
   q_html += '<p class="quote">' + q_object.quote + '</p>';
-
   q_html += '<p class="source">' + q_object.source;
 
-  // Only display if Citation is available
-  if (q_object.citation) {
-    q_html += '<span class="citation">' + q_object.citation + '</span>';
-  }
+    // Only display if Citation is available
+    if (q_object.citation) {
+      q_html += '<span class="citation">' + q_object.citation + '</span>';
+    }
 
-  // Only display if Year is available
-  if (q_object.year) {
-    q_html += '<span class="year">' + q_object.year + '</span>';
-  }
+    // Only display if Year is available
+    if (q_object.year) {
+      q_html += '<span class="year">' + q_object.year + '</span>';
+    }
 
   q_html += '</p>';
 
@@ -95,7 +135,9 @@ function buildQuoteHTML(q_object) {
 }
 
 
-// Prints out a random quote from our array of quotes
+/**
+* 6. Prints a random quote from our array of quotes
+*/
 function printQuote() {
   var q_container = document.getElementById('quote-box');
   var q_object;
@@ -125,9 +167,13 @@ function printQuote() {
 }
 
 
-// Print a quote on first load
-printQuote();
-
-
-// Button action for generating a new quote
+/**
+* 7. Button action for generating a new quote
+*/
 document.getElementById('loadQuote').addEventListener('click', printQuote, false);
+
+
+/**
+* 8. Run our program on page load
+*/
+printQuote();
