@@ -47,8 +47,11 @@ var quotes = [
 /**
 * 1. Global variables
 */
-var previousQuote;
+var body = document.body;
 var quoteLength = quotes.length;
+var autoQuoteRotation = 3000; // every 3 seconds
+var previousQuote;
+var autoQuote;
 
 /**
 * 2. Returns a random number
@@ -140,6 +143,7 @@ function buildQuoteHTML(q_object) {
 */
 function printQuote() {
   var q_container = document.getElementById('quote-box');
+  var bg_color = getRandomColor();
   var q_object;
   var q_html = '';
 
@@ -164,6 +168,10 @@ function printQuote() {
   
   // Add quote html to page
   q_container.innerHTML = buildQuoteHTML(q_object);
+
+  // Updated the page background
+  // Research from: https://www.w3schools.com/jsref/prop_doc_body.asp
+  body.style.backgroundColor = bg_color;
 }
 
 
@@ -177,3 +185,10 @@ document.getElementById('loadQuote').addEventListener('click', printQuote, false
 * 8. Run our program on page load
 */
 printQuote();
+
+
+/**
+* 9. Run our program on page load
+* Research from: https://www.w3schools.com/jsref/met_win_setinterval.asp
+*/
+previousQuote = setInterval(printQuote, autoQuoteRotation);
