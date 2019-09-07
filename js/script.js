@@ -21,13 +21,17 @@ var quotes = [
     quote: 'The rest of the world may follow the rules, but I must follow my heart.',
     source: 'Ernesto',
     citation: 'Coco',
+    graphic: 'coco.png',
     year: 2017
   },
   {
     quote: 'Now, you might not feel like you can do much now, but that\'s just because, well, you\'re not a tree yet. You just have to give yourself some time. You\'re still a seed.',
     source: 'Flik',
     citation: 'A Bug\'s Life',
-    year: 1998
+    year: 1998,
+    facts: [
+            'Cumulative Worldwide Gross $363,258,859'
+          ]
   },
   {
     quote: 'To infinity and beyond!',
@@ -45,9 +49,18 @@ var previousQuote;
 function getRandomQuote() {
 
   // generates a random number from 0 to the amount of objects in Quotes.
-  var quote_key = Math.floor(Math.random() * quotes.length ) ;
+  var quote_key = Math.floor( Math.random() * quotes.length ) ;
 
   return quotes[quote_key];
+}
+
+function randomColor() {
+  // Generated a random value
+  var r = Math.floor( Math.random() * 256 );
+  var g = Math.floor( Math.random() * 256 );
+  var b = Math.floor( Math.random() * 256 );
+
+  return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 
 // Returns the html for displaying a quote.
@@ -56,6 +69,7 @@ function buildQuoteHTML(q_object) {
   var q_html = '';
 
   q_html += '<p class="quote">' + q_object.quote + '</p>';
+
   q_html += '<p class="source">' + q_object.source;
 
   // Only display if Citation is available
@@ -69,6 +83,13 @@ function buildQuoteHTML(q_object) {
   }
 
   q_html += '</p>';
+
+  // Only display if Graphic is available
+  if (q_object.graphic) {
+    q_html += '<div class="graphic"><span>';
+    q_html += '<img src="img/' + q_object.graphic + '" alt="Pixar' + q_object.source + 'logo">';
+    q_html += '</span></div>';
+  }
 
   return q_html;
 }

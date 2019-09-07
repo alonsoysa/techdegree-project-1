@@ -57,6 +57,24 @@ body {
   content: "—";
 }
 
+.graphic {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.graphic span {
+  display: inline-block;
+  width: 100px;
+  padding: 10px;
+  background: white;
+}
+
+.graphic img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
 .citation {
   font-style: italic;
 }
