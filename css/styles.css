@@ -24,6 +24,36 @@
   }
 }
 
+/*
+  Dance animation from 
+  https: //codepen.io/ismamz/pen/PGErmj
+*/
+@keyframes dance {
+
+  from,
+  49% {
+    transform-origin: -20% 100%;
+  }
+
+  50%,
+  75%,
+  to {
+    transform-origin: 150% 100%;
+  }
+
+  25% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
 html {
   height: 100%;
 }
@@ -67,7 +97,6 @@ body {
 
 .controls li {
   border-left: 1px solid #dadada;
-  margin-right: -1px;
   float: right;
 }
 
@@ -195,18 +224,24 @@ body {
 }
 
 #loadQuote,
-#pauseQuote {
+#pauseQuote,
+#playMusic {
   background: none;
   border: 0;
   padding: 0;
   font-size: 1.5rem;
   height: 72px;
   width: 72px;
-  position: relative
+  position: relative;
+  overflow: hidden;
+}
+
+#playMusic {
+  opacity: 0.4;
 }
 
 #loadQuote {
-  background: #000;
+  background: #008cfa;
 }
 
 #loadQuote svg {
@@ -244,16 +279,39 @@ body {
   display: block;;
 }
 
+#playMusic.active {
+  opacity: 1;
+}
+
+#playMusic.active .svg-icon {
+  position: relative;
+  bottom: -5px;
+  animation: dance .8s infinite alternate ease-in-out;
+}
+
+#playMusic.active path {
+  fill: #008cfa;
+}
+
 #pauseQuote:hover .svg-icon {
   transform: scale(1.25);
+}
+#pauseQuote:hover path {
+  fill: #008cfa;
 }
 #loadQuote:hover .svg-icon {
   transform: rotate(-370deg);
 }
 
+
 #loadQuote:focus,
-#pauseQuote:focus {
+#pauseQuote:focus,
+#playMusic:focus {
   outline: none;
+}
+
+#music {
+  display: none;
 }
 
 @media (min-width: 640px) {

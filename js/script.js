@@ -13,9 +13,11 @@ project 1 - A Random Quote Generator
 8. Plays and pauses quote
 9. Play indicator logic
 10. Display play indicator
-11. Button action for generating a new quote
-12. Button action for pausing auto quote
-13. Run program on page load
+11. Play music
+12. Button action for generating a new quote
+13. Button action for pausing auto quote
+14. Button action for playing music
+15. Run program on page load
 
 ******************************************/
 
@@ -67,6 +69,7 @@ var quotes = [
 */
 var body = document.body;
 var bg_color;
+var musicElement = document.getElementById('music');
 
 // Quote Vars
 var quoteLength = quotes.length;
@@ -293,18 +296,40 @@ function playIndicator() {
 
 
 /**
-* 11. Button action for generating a new quote
+* 11. Play music
+* - Displays progress bar for play/pause button
+* - Research: https://www.w3schools.com/tags/att_audio_loop.asp
+* - Research: https://www.w3schools.com/tags/av_met_play.asp
+*/
+function playMusic() {
+  if (document.getElementById('playMusic').classList.contains('active') ) {
+    document.getElementById('playMusic').classList.remove('active');
+    musicElement.pause();
+  } else {
+    document.getElementById('playMusic').classList.add('active');
+    musicElement.play();
+  }
+}
+
+
+/**
+* 12. Button action for generating a new quote
 */
 document.getElementById('loadQuote').addEventListener('click', printQuote, false);
 
 
 /**
-* 12. Button action for pausing quote
+* 13. Button action for pausing quote
 */
 document.getElementById('pauseQuote').addEventListener('click', pausePlayQuote, false);
 
+/**
+* 14. Button action for playing music
+*/
+document.getElementById('playMusic').addEventListener('click', playMusic, false);
+
 
 /**
-* 13. Run our program on page load
+* 15. Run our program on page load
 */
 printQuote();
