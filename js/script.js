@@ -1,10 +1,27 @@
 /******************************************
 Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
+
+0. An array of quote objects based on Pixar movies!
+1. Global variables
+2. Random number
+3. Random quote
+4. Random RGB color
+5. Build quote HTML
+6. Quote logic
+7. Display quote
+8. Plays and pauses quote
+9. Play indicator logic
+10. Display play indicator
+11. Button action for generating a new quote
+12. Button action for pausing auto quote
+13. Run program on page load
+
 ******************************************/
 
 /**
-* 1. An array of quote objects based on Pixar movies!
+* 0. An array of quote objects based on Pixar movies!
+* - Ideally this will be moved to it's own .json file in the future
 */
 var quotes = [
   {
@@ -49,12 +66,13 @@ var quotes = [
 * 1. Global variables
 */
 var body = document.body;
+var bg_color;
+
 // Quote Vars
 var quoteLength = quotes.length;
 var autoQuoteRotation = 5000; // every 3 seconds
 var previousQuote;
 var autoQuote;
-var bg_color;
 
 // Progress Vars
 var progressBarElement = document.getElementById('pauseQuote-pause-bg');
@@ -62,13 +80,15 @@ var progressBarWidth = 0;
 var progressBarWidthTimer = autoQuoteRotation / 100;
 var progressBarInterval;
 
+
 /**
-* 2. Returns a random number
-*   - upper = the highest number (optional)
-*   - lower = the lowest number (optional)
-*   A. Returns a number from the specified range
-*   B. Returns a number from 0 to the specified upper number
-*   C. Returns a number from 1 to 100
+* 2. Random Quote
+* - Returns a random number
+* - upper = the highest number (optional)
+* - lower = the lowest number (optional)
+* A. Returns a number from the specified range
+* B. Returns a number from 0 to the specified upper number
+* C. Returns a number from 1 to 100
 */
 function getRandomNumber(upper, lower) {
   var random_number;
@@ -93,7 +113,8 @@ function getRandomNumber(upper, lower) {
 
 
 /**
-* 3. Returns a random quote from the quotes object
+* 3. Random Quote
+* - Returns a random quote from the quotes object
 */
 function getRandomQuote() {
   var quote_key = getRandomNumber(quoteLength);
@@ -102,7 +123,8 @@ function getRandomQuote() {
 
 
 /**
-* 4. Generate a random rgb color
+* 4. Random RGB Color
+* - Generates a random rgb color
 */
 function getRandomColor() {
   // Generate a random value for each color.
@@ -118,7 +140,8 @@ function getRandomColor() {
 
 
 /**
-* 5. Returns the html for displaying a quote.
+* 5. Build Quote HTML
+* - Returns the html for displaying a quote.
 */
 function buildQuoteHTML(q_object) {
   var q_html = '<div class="quote-wrapper">';
@@ -143,10 +166,12 @@ function buildQuoteHTML(q_object) {
   if (q_object.graphic) {
     q_html += '<div class="graphic"><span>';
 
+    // Only add link if imdb id is present
     if ( q_object.imdb_id) {
       q_html += '<a href="https://www.imdb.com/title/' + q_object.imdb_id + '" target="_blank">';
     }
 
+    // Show image even if link is not present
     q_html += '<img src="img/' + q_object.graphic + '" alt="Pixar' + q_object.source + 'logo">';
 
     if (q_object.imdb_id) {
@@ -161,9 +186,11 @@ function buildQuoteHTML(q_object) {
 
 
 /**
-* 6. Prints a random quote from our array of quotes
+* 6. Quote logic
+* - Prints a random quote from our array of quotes
+* - Assigns the body color
 */
-function printQuote() {
+function printQuoteAction() {
   var q_container = document.getElementById('quote-box');
   var q_object;
   var q_html = '';
@@ -194,26 +221,34 @@ function printQuote() {
   // Updated the page background
   // Research from: https://www.w3schools.com/jsref/prop_doc_body.asp
   body.style.backgroundColor = bg_color;
-  playIndicator();
-}
 
-function printQuote_btn() {
-  clearInterval(autoQuote);
-  autoQuote = setInterval(printQuote, autoQuoteRotation);
-  printQuote();
+  // Show progress bar indicator
+  playIndicator();
 }
 
 
 /**
-* 7. Plays and pauses quote
+* 7. Display quote
+- Clears any intervals before printing the quote to page
+*/
+function printQuote() {
+  clearInterval(autoQuote);
+  autoQuote = setInterval(printQuoteAction, autoQuoteRotation);
+  printQuoteAction();
+}
+
+
+/**
+* 8. Plays and pauses quote
 * Research: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
 */
 function pausePlayQuote() {
   var element = this; 
 
+  // Reset all intervals and progress indicator
   clearInterval(autoQuote);
-  progressBarWidth = 0;
   clearInterval(progressBarInterval);
+  progressBarWidth = 0;
 
   // Pause by clearing the interval and removing the active class
   if( element.classList.contains('active') ) {
@@ -223,48 +258,53 @@ function pausePlayQuote() {
   // Resume by setting an interval and adding active class
   else {
     element.classList.add('active');
-    printQuote_btn();
+    printQuote();
     playIndicator();
   }
 }
 
 
 /**
-* 8. Displays progress bar between intervals
-* Research: https://www.w3schools.com/jsref/met_win_setinterval.asp
+* 9. Play indicator logic
+- Updates the width of the progress bar
 */
-function playIndicator() {
-  clearInterval(progressBarInterval);
-  progressBarWidth = 0;
-  progressBarElement.style.backgroundColor = bg_color;
-  progressBarInterval = setInterval(playIndicator_frame, progressBarWidthTimer);
-}
-function playIndicator_frame() {
+function playIndicatorAction() {
   progressBarWidth++;
   progressBarElement.style.width = progressBarWidth + '%';
 }
 
 
 /**
-* 8. Button action for generating a new quote
+* 10. Display play indicator
+* - Displays progress bar for play/pause button
+* - Research: https://www.w3schools.com/jsref/met_win_setinterval.asp
 */
-document.getElementById('loadQuote').addEventListener('click', printQuote_btn, false);
+function playIndicator() {
+  // Resets any previous progress bar
+  clearInterval(progressBarInterval);
+  progressBarWidth = 0;
+
+  // Uses the same background random color set for the body
+  progressBarElement.style.backgroundColor = bg_color;
+
+  // Sets the interval for updating the progress bar width
+  progressBarInterval = setInterval(playIndicatorAction, progressBarWidthTimer);
+}
 
 
 /**
-* 9. Button action for generating a new quote
+* 11. Button action for generating a new quote
+*/
+document.getElementById('loadQuote').addEventListener('click', printQuote, false);
+
+
+/**
+* 12. Button action for pausing quote
 */
 document.getElementById('pauseQuote').addEventListener('click', pausePlayQuote, false);
 
 
 /**
-* 10. Run our program on page load
+* 13. Run our program on page load
 */
 printQuote();
-
-
-/**
-* 11. Run our program on page load
-* Research from: https://www.w3schools.com/jsref/met_win_setinterval.asp
-*/
-autoQuote = setInterval(printQuote, autoQuoteRotation);
