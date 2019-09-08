@@ -45,7 +45,6 @@ body {
 
 .controls li {
   border-left: 1px solid #dadada;
-  border-right: 1px solid #dadada;
   margin-right: -1px;
   float: right;
 }
@@ -171,13 +170,33 @@ body {
   font-size: 1.5rem;
   height: 72px;
   width: 72px;
+  position: relative
+}
+
+#loadQuote {
+  background: #000;
+}
+
+#loadQuote svg {
+  fill: white;
+}
+
+#pauseQuote-pause-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 100%;
+  background: rgb(233, 233, 233);
 }
 
 #loadQuote .svg-icon {
   transition: all 0.2s ease-in-out;
 }
 #pauseQuote .svg-icon {
-  transition: all 0.2s ease-in-out;
+  position: relative;
+  z-index: 10;
+  transition: all 0.2s ease;
 }
 
 #pauseQuote .pauseQuote-pause {

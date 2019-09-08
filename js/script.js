@@ -49,7 +49,7 @@ var quotes = [
 */
 var body = document.body;
 var quoteLength = quotes.length;
-var autoQuoteRotation = 3000; // every 3 seconds
+var autoQuoteRotation = 8000; // every 3 seconds
 var previousQuote;
 var autoQuote;
 
@@ -175,6 +175,7 @@ function printQuote() {
   // Updated the page background
   // Research from: https://www.w3schools.com/jsref/prop_doc_body.asp
   body.style.backgroundColor = bg_color;
+  progressBar();
 }
 
 
@@ -195,6 +196,26 @@ function pausePlayQuote() {
   else {
     autoQuote = setInterval(printQuote, autoQuoteRotation);
     element.classList.add('active');
+  }
+}
+
+
+/**
+* 8. Displays progress bar between intervals
+* Research: https://www.w3schools.com/jsref/met_win_setinterval.asp
+*/
+function progressBar() {
+  var elem = document.getElementById('pauseQuote-pause-bg');
+  var width = 0;
+  var timer = autoQuoteRotation / 100;
+  var id = setInterval(frame, timer);
+  function frame() {
+    if (width == 100) {
+      clearInterval(id);
+    } else {
+      width++;
+      elem.style.width = width + '%';
+    }
   }
 }
 
