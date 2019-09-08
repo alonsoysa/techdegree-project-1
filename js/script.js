@@ -179,19 +179,46 @@ function printQuote() {
 
 
 /**
-* 7. Button action for generating a new quote
+* 7. Plays and pauses quote
+* Research: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+*/
+function pausePlayQuote() {
+  var element = this;
+
+  // Pause by clearing the interval and removing the active class
+  if( element.classList.contains('active') ) {
+    clearInterval(autoQuote);
+    element.classList.remove('active');
+  } 
+  
+  // Resume by setting an interval and adding active class
+  else {
+    autoQuote = setInterval(printQuote, autoQuoteRotation);
+    element.classList.add('active');
+  }
+}
+
+
+/**
+* 8. Button action for generating a new quote
 */
 document.getElementById('loadQuote').addEventListener('click', printQuote, false);
 
 
 /**
-* 8. Run our program on page load
+* 9. Button action for generating a new quote
+*/
+document.getElementById('pauseQuote').addEventListener('click', pausePlayQuote, false);
+
+
+/**
+* 10. Run our program on page load
 */
 printQuote();
 
 
 /**
-* 9. Run our program on page load
+* 11. Run our program on page load
 * Research from: https://www.w3schools.com/jsref/met_win_setinterval.asp
 */
-previousQuote = setInterval(printQuote, autoQuoteRotation);
+autoQuote = setInterval(printQuote, autoQuoteRotation);
