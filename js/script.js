@@ -97,12 +97,12 @@ function getRandomQuote() {
 */
 function getRandomColor() {
   // Generate a random value for each color.
-  // I picked 170 instead of 255 so that the text contrast
+  // I picked 210 instead of 255 so that the text contrast
   // doesn't get affected by the background.
   // The lower the number, the darker the color.
-  var r = getRandomNumber(180);
-  var g = getRandomNumber(180);
-  var b = getRandomNumber(180);
+  var r = getRandomNumber(210);
+  var g = getRandomNumber(210);
+  var b = getRandomNumber(210);
 
   return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
