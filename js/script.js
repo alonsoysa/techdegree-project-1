@@ -24,6 +24,7 @@ var quotes = [
     source: 'Ernesto',
     citation: 'Coco',
     graphic: 'coco.png',
+    imdb_id: 'tt2380307',
     year: 2017
   },
   {
@@ -48,10 +49,18 @@ var quotes = [
 * 1. Global variables
 */
 var body = document.body;
+// Quote Vars
 var quoteLength = quotes.length;
-var autoQuoteRotation = 8000; // every 3 seconds
+var autoQuoteRotation = 5000; // every 3 seconds
 var previousQuote;
 var autoQuote;
+var bg_color;
+
+// Progress Vars
+var progressBarElement = document.getElementById('pauseQuote-pause-bg');
+var progressBarWidth = 0;
+var progressBarWidthTimer = autoQuoteRotation / 100;
+var progressBarInterval;
 
 /**
 * 2. Returns a random number
@@ -112,7 +121,7 @@ function getRandomColor() {
 * 5. Returns the html for displaying a quote.
 */
 function buildQuoteHTML(q_object) {
-  var q_html = '';
+  var q_html = '<div class="quote-wrapper">';
 
   // Start building markup
   q_html += '<p class="quote">' + q_object.quote + '</p>';
@@ -128,12 +137,22 @@ function buildQuoteHTML(q_object) {
       q_html += '<span class="year">' + q_object.year + '</span>';
     }
 
-  q_html += '</p>';
+  q_html += '</p></div>';
 
   // Only display if Graphic is available
   if (q_object.graphic) {
     q_html += '<div class="graphic"><span>';
+
+    if ( q_object.imdb_id) {
+      q_html += '<a href="https://www.imdb.com/title/' + q_object.imdb_id + '" target="_blank">';
+    }
+
     q_html += '<img src="img/' + q_object.graphic + '" alt="Pixar' + q_object.source + 'logo">';
+
+    if (q_object.imdb_id) {
+      q_html += '</a>';
+    }
+
     q_html += '</span></div>';
   }
 
@@ -146,9 +165,9 @@ function buildQuoteHTML(q_object) {
 */
 function printQuote() {
   var q_container = document.getElementById('quote-box');
-  var bg_color = getRandomColor();
   var q_object;
   var q_html = '';
+  bg_color = getRandomColor();
 
   // Logic for preventing a quote repeat
   if (!previousQuote) {
@@ -175,7 +194,13 @@ function printQuote() {
   // Updated the page background
   // Research from: https://www.w3schools.com/jsref/prop_doc_body.asp
   body.style.backgroundColor = bg_color;
-  progressBar();
+  playIndicator();
+}
+
+function printQuote_btn() {
+  clearInterval(autoQuote);
+  autoQuote = setInterval(printQuote, autoQuoteRotation);
+  printQuote();
 }
 
 
@@ -184,18 +209,22 @@ function printQuote() {
 * Research: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
 */
 function pausePlayQuote() {
-  var element = this;
+  var element = this; 
+
+  clearInterval(autoQuote);
+  progressBarWidth = 0;
+  clearInterval(progressBarInterval);
 
   // Pause by clearing the interval and removing the active class
   if( element.classList.contains('active') ) {
-    clearInterval(autoQuote);
     element.classList.remove('active');
   } 
   
   // Resume by setting an interval and adding active class
   else {
-    autoQuote = setInterval(printQuote, autoQuoteRotation);
     element.classList.add('active');
+    printQuote_btn();
+    playIndicator();
   }
 }
 
@@ -204,26 +233,22 @@ function pausePlayQuote() {
 * 8. Displays progress bar between intervals
 * Research: https://www.w3schools.com/jsref/met_win_setinterval.asp
 */
-function progressBar() {
-  var elem = document.getElementById('pauseQuote-pause-bg');
-  var width = 0;
-  var timer = autoQuoteRotation / 100;
-  var id = setInterval(frame, timer);
-  function frame() {
-    if (width == 100) {
-      clearInterval(id);
-    } else {
-      width++;
-      elem.style.width = width + '%';
-    }
-  }
+function playIndicator() {
+  clearInterval(progressBarInterval);
+  progressBarWidth = 0;
+  progressBarElement.style.backgroundColor = bg_color;
+  progressBarInterval = setInterval(playIndicator_frame, progressBarWidthTimer);
+}
+function playIndicator_frame() {
+  progressBarWidth++;
+  progressBarElement.style.width = progressBarWidth + '%';
 }
 
 
 /**
 * 8. Button action for generating a new quote
 */
-document.getElementById('loadQuote').addEventListener('click', printQuote, false);
+document.getElementById('loadQuote').addEventListener('click', printQuote_btn, false);
 
 
 /**

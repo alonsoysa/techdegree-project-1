@@ -2,18 +2,40 @@
  * Treehouse FSJS Techdegree
  * Random Quote Generator - CSS
  */
+
+ @keyframes fadeInUp {
+   from {
+     opacity: 0;
+     transform: translate3d(0, 10%, 0);
+   }
+
+   to {
+     opacity: 1;
+     transform: translate3d(0, 0, 0);
+   }
+ }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 html {
   height: 100%;
 }
 body {
   background-color: #36b55c;
+  transition: background 0.2s ease-out;
   color: white;
   font-family: 'Playfair Display', serif;
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
-
-
 
 .wrapper {
   display: flex;
@@ -82,6 +104,9 @@ body {
   position: relative;
   margin: 0;
   z-index: 10;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-name: fadeInUp;
 }
 
 .quote:before, .quote:after {
@@ -111,6 +136,10 @@ body {
   margin-right: 4em;
   position: relative;
   z-index: 10;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-name: fadeIn;
 }
 
 .source:before {
@@ -122,6 +151,9 @@ body {
   top: 30px;
   right: 30px;
   z-index: 20;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-name: fadeIn;
 }
 
 .graphic span {
@@ -188,6 +220,7 @@ body {
   width: 10px;
   height: 100%;
   background: rgb(233, 233, 233);
+  opacity: 0.15;
 }
 
 #loadQuote .svg-icon {
@@ -212,7 +245,7 @@ body {
 }
 
 #pauseQuote:hover .svg-icon {
-  transform: scale(1.1);
+  transform: scale(1.25);
 }
 #loadQuote:hover .svg-icon {
   transform: rotate(-370deg);
