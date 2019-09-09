@@ -27,10 +27,43 @@ project 1 - A Random Quote Generator
 */
 var quotes = [
   {
+    quote: 'Some say fate is beyond our command, but I know better. Our destiny is within us. You just have to be brave enough to see it.',
+    source: 'Merida',
+    citation: 'Brave',
+    year: 2012,
+    graphic: 'brave.png',
+    imdb_id: 'tt1217209',
+  },
+  {
+    quote: 'You can do whatever you put your mind to',
+    source: 'Jenny',
+    citation: 'Finding Dory',
+    year: 2016,
+    graphic: 'dory.png',
+    imdb_id: 'tt2277860',
+  },
+  {
     quote: 'Adventure is out there!',
     source: 'Ellie',
     citation: 'Up',
-    year: 2009
+    year: 2009,
+    graphic: 'up.png',
+    imdb_id: 'tt1049413',
+  },
+  {
+    quote: 'We can\'t focus on what\'s going wrong, there\'s always a way to turn things around.',
+    source: 'Joy',
+    citation: 'Inside Out',
+    year: 2015,
+    graphic: 'insideout.png',
+    imdb_id: 'tt2096673',
+  },
+  {
+    quote: 'Reach for the sky!',
+    source: 'Woody',
+    citation: 'Toy Story',
+    graphic: 'toystory.png',
+    imdb_id: 'tt0114709',
   },
   {
     quote: 'If you focus on what you left behind you will never see what lies ahead.',
@@ -50,17 +83,26 @@ var quotes = [
     quote: 'Now, you might not feel like you can do much now, but that\'s just because, well, you\'re not a tree yet. You just have to give yourself some time. You\'re still a seed.',
     source: 'Flik',
     citation: 'A Bug\'s Life',
+    graphic: 'abugslife.png',
+    imdb_id: 'tt0120623',
     year: 1998,
-    facts: [
-            'Cumulative Worldwide Gross $363,258,859'
-          ]
   },
   {
     quote: 'To infinity and beyond!',
     source: 'Buzz Lightyear',
     citation: 'Toy Story',
+    graphic: 'toystory.png',
+    imdb_id: 'tt0114709',
     year: 1995
   },
+  {
+    quote: 'I never look back, darling.It distracts me from the now.',
+    source: 'Edna Mode',
+    citation: 'The Incredibles',
+    graphic: 'theincredibles.png',
+    imdb_id: 'tt0317705',
+    year: 1995
+  }
 ];
 
 
@@ -70,6 +112,11 @@ var quotes = [
 var body = document.body;
 var bg_color;
 var musicElement = document.getElementById('music');
+
+// Triggers
+var triggerQuote = document.getElementById('loadQuote');
+var triggerPauseQuote = document.getElementById('pauseQuote');
+var triggerPlayMusic = document.getElementById('playMusic');
 
 // Quote Vars
 var quoteLength = quotes.length;
@@ -297,16 +344,21 @@ function playIndicator() {
 
 /**
 * 11. Play music
-* - Displays progress bar for play/pause button
+* - Controls the audi player ( html5 )
 * - Research: https://www.w3schools.com/tags/att_audio_loop.asp
 * - Research: https://www.w3schools.com/tags/av_met_play.asp
 */
 function playMusic() {
-  if (document.getElementById('playMusic').classList.contains('active') ) {
-    document.getElementById('playMusic').classList.remove('active');
+
+  // If is already active then pause
+  if (triggerPlayMusic.classList.contains('active') ) {
+    triggerPlayMusic.classList.remove('active');
     musicElement.pause();
-  } else {
-    document.getElementById('playMusic').classList.add('active');
+  } 
+  
+  // Otherwise play on!
+  else {
+    triggerPlayMusic.classList.add('active');
     musicElement.play();
   }
 }
@@ -315,18 +367,18 @@ function playMusic() {
 /**
 * 12. Button action for generating a new quote
 */
-document.getElementById('loadQuote').addEventListener('click', printQuote, false);
+triggerQuote.addEventListener('click', printQuote, false);
 
 
 /**
 * 13. Button action for pausing quote
 */
-document.getElementById('pauseQuote').addEventListener('click', pausePlayQuote, false);
+triggerPauseQuote.addEventListener('click', pausePlayQuote, false);
 
 /**
 * 14. Button action for playing music
 */
-document.getElementById('playMusic').addEventListener('click', playMusic, false);
+triggerPlayMusic.addEventListener('click', playMusic, false);
 
 
 /**
