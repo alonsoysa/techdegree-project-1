@@ -33,3 +33,7 @@ All images are from [WikimediaCommons](https://commons.wikimedia.org/wiki/Catego
 ##### Music
 
 You've got a friend in me sound midi by [Kyle Landry](https://www.youtube.com/watch?v=PmhBJ8eCtBk)
+
+##### Icons
+
+Icons from [iconmoon](https://icomoon.io)
