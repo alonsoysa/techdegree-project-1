@@ -152,6 +152,7 @@ var progressBarElement = document.getElementById('pauseQuote-pause-bg');
 var progressBarWidth = 0;
 var progressBarWidthTimer = autoQuoteRotation / 100;
 var progressBarInterval;
+var isAutoOn = true;
 
 
 /**
@@ -306,7 +307,12 @@ function printQuoteAction() {
 */
 function printQuote() {
   clearInterval(autoQuote);
-  autoQuote = setInterval(printQuoteAction, autoQuoteRotation);
+
+  // Only reset if autoplay is on
+  if (isAutoOn) {
+    autoQuote = setInterval(printQuoteAction, autoQuoteRotation);
+  }
+
   printQuoteAction();
 }
 
@@ -324,13 +330,15 @@ function pausePlayQuote() {
   progressBarWidth = 0;
 
   // Pause by clearing the interval and removing the active class
-  if( element.classList.contains('active') ) {
+  if (element.classList.contains('active')) {
+    isAutoOn = false;
     element.classList.remove('active');
   } 
   
   // Resume by setting an interval and adding active class
   else {
     element.classList.add('active');
+    isAutoOn = true;
     printQuote();
     playIndicator();
   }
