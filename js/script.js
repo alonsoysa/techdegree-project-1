@@ -2,6 +2,29 @@
 Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
 
+To do list:
+  Meets Expectations
+    [C] Create Array of Objects
+    [C] Quote Objects
+    [C] `getRandomQuote` function
+    [C] `printQuote` function
+    [C] Code comments
+
+  Exceeds Expectations
+    [C] additional properties
+          - Logo
+          - IMDB link
+          - Did not go with tags because they are all animation / adventure movies
+    [C] Quotes change automatically after a certain amount of time passes.
+    [C] Background color changes each time the quote changes
+  
+  Bonus
+    [C] Prevent previous quote from showing
+    [C] Progress bar indicator
+    [C] Pause and play button
+    [C] Add music button
+
+
 0. An array of quote objects based on Pixar movies!
 1. Global variables
 2. Random number
