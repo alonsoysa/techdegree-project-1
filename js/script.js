@@ -28,10 +28,10 @@ To do list:
 0. An array of quote objects based on Pixar movies!
 1. Global variables
 2. Random number
-3. Random quote
+3. Random quote Key
 4. Random RGB color
 5. Build quote HTML
-6. Quote logic
+6. Random Quote logic
 7. Display quote
 8. Plays and pauses quote
 9. Play indicator logic
@@ -187,10 +187,10 @@ function getRandomNumber(upper, lower) {
 
 
 /**
-* 3. Random Quote
+* 3. Random Quote Key
 * - Returns a random quote from the quotes object
 */
-function getRandomQuote() {
+function getRandomQuoteKey() {
   var quote_key = getRandomNumber(quoteLength);
   return quotes[quote_key];
 }
@@ -260,11 +260,11 @@ function buildQuoteHTML(q_object) {
 
 
 /**
-* 6. Quote logic
+* 6. Random Quote logic
 * - Prints a random quote from our array of quotes
 * - Assigns the body color
 */
-function printQuoteAction() {
+function getRandomQuote() {
   var q_container = document.getElementById('quote-box');
   var q_object;
   var q_html = '';
@@ -273,11 +273,11 @@ function printQuoteAction() {
   // Logic for preventing a quote repeat
   if (!previousQuote) {
     // Runs if no previous quote has been set
-    q_object = getRandomQuote(quotes);
+    q_object = getRandomQuoteKey(quotes);
   } else {
     // Runs a loop until the previous quote doesn't repeat
     while ( true ) {
-      q_object = getRandomQuote(quotes);
+      q_object = getRandomQuoteKey(quotes);
 
       // If is a new quote then break the loop
       if ( q_object !== previousQuote ) {
@@ -310,10 +310,10 @@ function printQuote() {
 
   // Only reset if autoplay is on
   if (isAutoOn) {
-    autoQuote = setInterval(printQuoteAction, autoQuoteRotation);
+    autoQuote = setInterval(getRandomQuote, autoQuoteRotation);
   }
 
-  printQuoteAction();
+  getRandomQuote();
 }
 
 
