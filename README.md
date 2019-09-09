@@ -5,24 +5,24 @@ School Project: Random Quote Generator using Pixar Quotes.
 
 ##### Meets
 
-[X] Create Array of Objects
-[X] Quote Objects
-[X] `getRandomQuote` function
-[X] `printQuote` function
-[X] Code comments
+* [x] Create Array of Objects
+* [x] Quote Objects
+* [x] `getRandomQuote` function
+* [x] `printQuote` function
+* [x] Code comments
 
 ##### Exceeds
 
-[X] Additional properties
-[X] Quotes change automatically after a certain amount of time passes.
-[X] Background color changes each time the quote changes
+* [x] Additional properties
+* [x] Quotes change automatically after a certain amount of time passes.
+* [x] Background color changes each time the quote changes
 
 ##### Bonus
 
-[X] Prevent previous quote from showing
-[X] Progress bar indicator
-[X] Pause and play button
-[X] Add music button
+* [x] Prevent previous quote from showing
+* [x] Progress bar indicator
+* [x] Pause and play button
+* [x] Add music button
 
 ### Resources
 
